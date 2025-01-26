@@ -1,0 +1,29 @@
+transformers==4.45.0
+accelerate==0.34.1
+# ai2-olmo==0.3.0
+bert-score==0.3.13
+bitsandbytes==0.43.1
+datasets==2.14.5
+flash-attn
+lightning==2.2.4
+nltk==3.8.1
+numpy==1.25.2
+openai==1.30.0
+pandas==2.1.1
+peft==0.13.0
+rouge-score==0.1.2
+sacrebleu==2.4.2
+scikit-learn==1.4.2
+## for rankllm
+tqdm>=4.66.2
+# openai>=1.23.6
+tiktoken>=0.6.0
+# transformers>=4.40.1
+pyserini>=0.35.0
+python-dotenv>=1.0.1
+faiss-cpu>=1.8.0
+ftfy>=6.2.0
+dacite>=1.8.1
+fschat[model_worker]>=0.2.36
+## for beam retriever
+tensorboard==2.18.0
