@@ -1,5 +1,5 @@
 # Generating complex questions decompositions in the face of distribution shifts
-This repository holds the data, code and models in the NAACL 2025 paper, [_"Generating complex questions decompositions in the face of distribution shifts"_](https://github.com/hankelvin/complex_question_decomposition/paper/naacl25_camera_ready.pdf).
+This repository holds the data, code and models in the NAACL 2025 paper, [_"Generating complex questions decompositions in the face of distribution shifts"_](https://github.com/hankelvin/complex_question_decomposition/blob/main/paper/naacl25_camera_ready.pdf).
 
 ## Preliminaries
 Install requirements:
