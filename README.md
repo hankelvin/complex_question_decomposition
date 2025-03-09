@@ -1,5 +1,5 @@
 # Generating complex questions decompositions in the face of distribution shifts
-This repository holds the data, code and models in the NAACL 2025 paper, _"Generating complex questions decompositions in the face of distribution shifts"_.
+This repository holds the data, code and models in the NAACL 2025 paper, [_"Generating complex questions decompositions in the face of distribution shifts"_](https://github.com/hankelvin/complex_question_decomposition/paper/naacl25_camera_ready.pdf).
 
 ## Preliminaries
 Install requirements:
@@ -34,14 +34,14 @@ The data used in our experiments can found [here](https://drive.google.com/drive
 ### 1. generating question decomposition candidates
 ```
 conda activate decompqg
-./scripts/01_do_llm_dqg.sh  ge breakhigh   validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  ll breakhigh   validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  ph breakhigh   validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  qw breakhigh   validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  ge musique     validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  ll musique     validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  ph musique     validation 'normal' 0 False $HFTOKEN
-./scripts/01_do_llm_dqg.sh  qw musique     validation 'normal' 0 False $HFTOKEN
+./scripts/01_do_llm_dqg.sh  ge breakhigh   validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  ll breakhigh   validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  ph breakhigh   validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  qw breakhigh   validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  ge musique     validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  ll musique     validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  ph musique     validation 'normal' 5 True $HFTOKEN
+./scripts/01_do_llm_dqg.sh  qw musique     validation 'normal' 5 True $HFTOKEN
 ```
 ---
 ### 2. obtain ranked preferences for question decompositions
@@ -86,10 +86,10 @@ conda deactivate
 #### a. finetuning
 ```
 conda activate decompqg
-./scripts/04_train_llm_dqg_acc_peft.sh llama  	breakhigh   'None' False 'None' '0 True' $HFTOKEN
-./scripts/04_train_llm_dqg_acc_peft.sh qwen  	breakhigh   'None' False 'None' '0 True' $HFTOKEN
-./scripts/04_train_llm_dqg_acc_peft.sh llama  	musique     'None' False 'None' '0 True' $HFTOKEN
-./scripts/04_train_llm_dqg_acc_peft.sh qwen  	musique     'None' False 'None' '0 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh llama  	breakhigh   'None' False 'None' '3 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh qwen  	breakhigh   'None' False 'None' '3 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh llama  	musique     'None' False 'None' '3 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh qwen  	musique     'None' False 'None' '3 True' $HFTOKEN
 ```
 
 #### b. obtaining predictions
@@ -98,10 +98,10 @@ Our fine-tuned models can found [here](https://drive.google.com/drive/folders/1z
 
 ```
 conda activate decompqg
-./scripts/04_train_llm_dqg_acc_peft.sh llama  	breakhigh   'None' phase3_val_as_test 'None' '0 True' $HFTOKEN
-./scripts/04_train_llm_dqg_acc_peft.sh qwen  	breakhigh   'None' phase3_val_as_test 'None' '0 True' $HFTOKEN
-./scripts/04_train_llm_dqg_acc_peft.sh llama  	musique     'None' phase3_val_as_test 'None' '0 True' $HFTOKEN
-./scripts/04_train_llm_dqg_acc_peft.sh qwen  	musique     'None' phase3_val_as_test 'None' '0 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh llama  	breakhigh   'None' phase3_val_as_test 'None' '3 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh qwen  	breakhigh   'None' phase3_val_as_test 'None' '3 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh llama  	musique     'None' phase3_val_as_test 'None' '3 True' $HFTOKEN
+./scripts/04_train_llm_dqg_acc_peft.sh qwen  	musique     'None' phase3_val_as_test 'None' '3 True' $HFTOKEN
 ```
 ---
 ### 5. run automatic metrics: exact match, SARI and GED
@@ -144,6 +144,28 @@ conda activate decompqg
 ./scripts/06b_do_beamret_fathom.sh musique musique None True True 'llm_top1_sft qwen musique' None 
 ```
 
+### 7. cross-domain experiments
+#### a. obtaining predictions
+```
+conda activate decompqg
+./scripts/07a_train_llm_dqg_acc_peft_CROSSDOMAINTEST.sh llama  	breakhigh   'None' phase3_val_as_test 'None' '5 True' musique   $HFTOKEN
+./scripts/07a_train_llm_dqg_acc_peft_CROSSDOMAINTEST.sh qwen  	breakhigh   'None' phase3_val_as_test 'None' '5 True' musique   $HFTOKEN
+./scripts/07a_train_llm_dqg_acc_peft_CROSSDOMAINTEST.sh llama  	musique     'None' phase3_val_as_test 'None' '5 True' breakhigh $HFTOKEN
+./scripts/07a_train_llm_dqg_acc_peft_CROSSDOMAINTEST.sh qwen  	musique     'None' phase3_val_as_test 'None' '5 True' breakhigh $HFTOKEN
+```
+
+#### b. QA evaluation with Llama & Qwen (public checkpoints, not fine-tuned)
+```
+conda activate decompqg
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  breakhigh llama llm_top1_sft_crossdomain_llama True musique   $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  breakhigh qwen  llm_top1_sft_crossdomain_llama True musique   $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  breakhigh llama llm_top1_sft_crossdomain_qwen  True musique   $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  breakhigh qwen  llm_top1_sft_crossdomain_qwen  True musique   $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  musique   llama llm_top1_sft_crossdomain_llama True breakhigh $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  musique   qwen  llm_top1_sft_crossdomain_llama True breakhigh $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  musique   llama llm_top1_sft_crossdomain_qwen  True breakhigh $HFTOKEN
+./scripts/07a_do_llm_dqa_eval_CROSSDOMAINTEST.sh  musique   qwen  llm_top1_sft_crossdomain_qwen  True breakhigh $HFTOKEN
+```
 
 ## Citation
 If you find our work useful, please cite our publication:
